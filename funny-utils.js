@@ -42,3 +42,23 @@ getRandomPos = function(arrayLenth, exceptPosArray) {
     return pos;
   }
 }
+
+/**
+ * 分时函数，items是数据，process是要执行的函数，context是传递过来的上下文，callback是回调函数.
+ * 该函数可以用来处理分时加载数据
+ * 其中的50ms 是大多数js代码执行所需要花费的时间，如果执行的时间要小于50ms，则可以再执行一次
+ */
+function timedChunk(items, process, context, callback) {
+    var todo = items.concat(), delay = 25; 
+    setTimeout(function() { 
+        var start = +new Date();
+        do { 
+            process.call(context, todo.shift());
+        } while (todo.length > 0 && (+new Date() - start < 50))
+        if(todo.length > 0) { 
+            setTimeout(arguments.callee, 25); 
+        } else if(callback) { 
+            callback(); 
+        } 
+    }, delay); 
+} 

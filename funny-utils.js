@@ -47,6 +47,7 @@ getRandomPos = function(arrayLenth, exceptPosArray) {
  * 分时函数，items是数据，process是要执行的函数，context是传递过来的上下文，callback是回调函数.
  * 该函数可以用来处理分时加载数据
  * 其中的50ms 是大多数js代码执行所需要花费的时间，如果执行的时间要小于50ms，则可以再执行一次
+ * 分时加载的核心是setTimeout以及时间参数的限制：25，50
  */
 function timedChunk(items, process, context, callback) {
     var todo = items.concat(), delay = 25; 
@@ -62,3 +63,30 @@ function timedChunk(items, process, context, callback) {
         } 
     }, delay); 
 } 
+
+/**
+ * 统计数组中重复元素的个数
+ * usage: 
+ *   var arr = [2, 2, 2, 2, 2, 4, 5, 5, 5, 9];
+ *   var result = countRepeatOb(arr);
+ *   document.write('[' + result[0] + ']<br>[' + result[1] + ']') 
+ * output:
+ *   [2,4,5,9]
+ *   [5,1,3,1]
+ */
+function countRepeatOb(arr) {
+    var a = [], b = [], prev;
+
+    arr.sort();
+    for ( var i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== prev ) {
+            a.push(arr[i]);
+            b.push(1);
+        } else {
+            b[b.length-1]++;
+        }
+        prev = arr[i];
+    }
+
+    return [a, b];
+}

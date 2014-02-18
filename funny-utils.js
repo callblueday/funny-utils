@@ -125,3 +125,43 @@ function localized() {
   // the position jumped to
   var mao = $("#main");, 100);
 }
+
+/**
+ * Wheel event
+ */
+function setWheelEvents(event) {
+  // for IE
+  if(!!(window.attachEvent && navigator.userAgent.indexOf('Opera') === -1)){
+    if(!wait) {
+      wait = true;
+      if(event.wheelDelta < 0) {
+        //wheel down
+        whellDirection = 'down';
+        setPageDownEvent();
+      }
+      else {
+        //wheel up
+        whellDirection = 'up';
+        setPageUpEvent();
+      }
+    }
+  }
+
+  // for else
+  $(window).bind('mousewheel', function(event, delta, deltaX, deltaY) {
+    // if(document.body.offsetWidth >= 800 && !wait) {
+    if(!wait) {
+      wait = true;
+      if(delta < 0) {
+        //wheel down
+        whellDirection = 'down';
+        setPageDownEvent();
+      }
+      else {
+        //wheel up
+        whellDirection = 'up';
+        setPageUpEvent();
+      }
+    }
+  });
+}

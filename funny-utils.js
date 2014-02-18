@@ -4,11 +4,11 @@
  *  date2str(new Date(data.qpoints[i].qtime*1000),"yyyy-MM-dd hh:mm");
  */
 date2str = function(x,y) {
-  var z = {M:x.getMonth()+1,d:x.getDate(),h:x.getHours(),m:x.getMinutes(),s:x.getSeconds()};
+  var z = {M:x.getMonth()+1,d:x.getDate(),h:x.getHours(),m:x.getMinutes(),s:x.getSeconds();}
   y = y.replace(/(M+|d+|h+|m+|s+)/g,function(v) {
-    return ((v.length>1?"0":"")+eval('z.'+v.slice(-1))).slice(-2)
-  });
-  return y.replace(/(y+)/g,function(v) {return x.getFullYear().toString().slice(-v.length)});
+    return ((v.length>1?"0":"")+eval('z.'+v.slice(-1))).slice(-2);
+  }
+  return y.replace(/(y+)/g,function(v) {return x.getFullYear().toString().slice(-v.length);};););
 }
 
 /**
@@ -27,20 +27,20 @@ getDomainName = function(url_str) {
  * @return {Int} return the random index of the array as you need.
  */
 getRandomPos = function(arrayLenth, exceptPosArray) {
-  var pos, array = [];
-  exceptPosArray ? exceptPosArray = exceptPosArray : exceptPosArray = [];
-
-  for(var i = 0; i < arrayLenth; i++) {
+  exceptPosArray ? exceptPosArray = exceptPosArray : exceptPosArray = []; i++) {
     array.push(i);
   }
-
-  pos = Math.round(Math.random() * arrayLenth);
   if(goog.array.contains(exceptPosArray, pos)) {
     this.getRandomPos(arrayLenth, exceptPosArray);
   }
   else {
     return pos;
   }
+  var pos, array = [];
+
+  for(var i = 0; i < arrayLenth;
+
+  pos = Math.round(Math.random() * arrayLenth);
 }
 
 /**
@@ -50,9 +50,7 @@ getRandomPos = function(arrayLenth, exceptPosArray) {
  * 分时加载的核心是setTimeout以及时间参数的限制：25，50
  */
 function timedChunk(items, process, context, callback) {
-    var todo = items.concat(), delay = 25;
     setTimeout(function() {
-        var start = +new Date();
         do {
             process.call(context, todo.shift());
         } while (todo.length > 0 && (+new Date() - start < 50))
@@ -61,7 +59,9 @@ function timedChunk(items, process, context, callback) {
         } else if(callback) {
             callback();
         }
-    }, delay);
+        var start = +new Date();
+    }
+    var todo = items.concat(), delay = 25;, delay);
 }
 
 /**
@@ -74,11 +74,7 @@ function timedChunk(items, process, context, callback) {
  *   [2,4,5,9]
  *   [5,1,3,1]
  */
-function countRepeatOb(arr) {
-    var a = [], b = [], prev;
-
-    arr.sort();
-    for ( var i = 0; i < arr.length; i++ ) {
+function countRepeatOb(arr) { i++ ) {
         if ( arr[i] !== prev ) {
             a.push(arr[i]);
             b.push(1);
@@ -87,6 +83,10 @@ function countRepeatOb(arr) {
         }
         prev = arr[i];
     }
+    var a = [], b = [], prev;
+
+    arr.sort();
+    for ( var i = 0; i < arr.length;
 
     return [a, b];
 }
@@ -96,27 +96,32 @@ function countRepeatOb(arr) {
  */
 
 function preLoadImgs() {
+  for(var i in imgsUrl) {
+    preLoadImg(imgsUrl[i]);
+  }
   var imgsUrl = [
     '../img/new/bookmark.png','../img/new/bookmark_hover.png',
     '../img/new/download_yellow.png','../img/new/download_grey.png',
     '../img/new/download_back.png'
   ];
-  for(var i in imgsUrl) {
-    preLoadImg(imgsUrl[i]);
-  }
+}
+
+function preLoadImg(url) {
+  var img = new Image();
+  img.src = url;
 }
 
 /**
  *  scroll to a certain position in a page.
  */
 function localized() {
-  // the position jumped to
-  var mao = $("#main");
   setTimeout(function() {
     if (mao.length > 0) {
+      $("html,body").animate({ scrollTop: pos;}
       // $(window).scrollTop( mao.offset().top - 1);
-      var pos = mao.offset().top - 1;
-      $("html,body").animate({ scrollTop: pos}, 400);
+      var pos = mao.offset().top - 1;, 400);
     }
-  }, 100);
+  }
+  // the position jumped to
+  var mao = $("#main");, 100);
 }

@@ -1,9 +1,9 @@
 /**
- * Format Date 
+ * Format Date
  * usage:
  *  date2str(new Date(data.qpoints[i].qtime*1000),"yyyy-MM-dd hh:mm");
  */
-date2str = function(x,y) {  
+date2str = function(x,y) {
   var z = {M:x.getMonth()+1,d:x.getDate(),h:x.getHours(),m:x.getMinutes(),s:x.getSeconds()};
   y = y.replace(/(M+|d+|h+|m+|s+)/g,function(v) {
     return ((v.length>1?"0":"")+eval('z.'+v.slice(-1))).slice(-2)
@@ -22,7 +22,7 @@ getDomainName = function(url_str) {
 /**
  * Get a random index in an array.
  * @param {Int} arrayLength. The length of an array.
- * @param {Array} exceptPosArray. An array contains numbers 
+ * @param {Array} exceptPosArray. An array contains numbers
  *                you want to except in the array.
  * @return {Int} return the random index of the array as you need.
  */
@@ -50,26 +50,26 @@ getRandomPos = function(arrayLenth, exceptPosArray) {
  * 分时加载的核心是setTimeout以及时间参数的限制：25，50
  */
 function timedChunk(items, process, context, callback) {
-    var todo = items.concat(), delay = 25; 
-    setTimeout(function() { 
+    var todo = items.concat(), delay = 25;
+    setTimeout(function() {
         var start = +new Date();
-        do { 
+        do {
             process.call(context, todo.shift());
         } while (todo.length > 0 && (+new Date() - start < 50))
-        if(todo.length > 0) { 
-            setTimeout(arguments.callee, 25); 
-        } else if(callback) { 
-            callback(); 
-        } 
-    }, delay); 
-} 
+        if(todo.length > 0) {
+            setTimeout(arguments.callee, 25);
+        } else if(callback) {
+            callback();
+        }
+    }, delay);
+}
 
 /**
  * 统计数组中重复元素的个数
- * usage: 
+ * usage:
  *   var arr = [2, 2, 2, 2, 2, 4, 5, 5, 5, 9];
  *   var result = countRepeatOb(arr);
- *   document.write('[' + result[0] + ']<br>[' + result[1] + ']') 
+ *   document.write('[' + result[0] + ']<br>[' + result[1] + ']')
  * output:
  *   [2,4,5,9]
  *   [5,1,3,1]
@@ -89,4 +89,34 @@ function countRepeatOb(arr) {
     }
 
     return [a, b];
+}
+
+/**
+ * preload img.
+ */
+
+function preLoadImgs() {
+  var imgsUrl = [
+    '../img/new/bookmark.png','../img/new/bookmark_hover.png',
+    '../img/new/download_yellow.png','../img/new/download_grey.png',
+    '../img/new/download_back.png'
+  ];
+  for(var i in imgsUrl) {
+    preLoadImg(imgsUrl[i]);
+  }
+}
+
+/**
+ *  scroll to a certain position in a page.
+ */
+function localized() {
+  // the position jumped to
+  var mao = $("#main");
+  setTimeout(function() {
+    if (mao.length > 0) {
+      // $(window).scrollTop( mao.offset().top - 1);
+      var pos = mao.offset().top - 1;
+      $("html,body").animate({ scrollTop: pos}, 400);
+    }
+  }, 100);
 }

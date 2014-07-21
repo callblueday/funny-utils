@@ -94,7 +94,6 @@ function countRepeatOb(arr) { i++ ) {
 /**
  * preload img.
  */
-
 function preLoadImgs() {
   for(var i in imgsUrl) {
     preLoadImg(imgsUrl[i]);
@@ -164,4 +163,74 @@ function setWheelEvents(event) {
       }
     }
   });
+}
+
+
+/* 比较两个日期 */
+(function() {
+  var d1 = "2011-03-02T15:30:18-08:00";
+  var d2 = "2011-03-02T15:36:05-08:00";
+  if (new Date(d1) < new Date(d2)) {
+    console.log('newer');
+  }
+})();
+
+
+/* 构造克隆方法 */
+Array.prototype.clone=function(){ 
+  return [].concat(this);
+}
+
+
+/**
+ * 构造命名空间函数
+ * 
+ */
+var MYAPP = MYAPP || {};
+MYAPP.namespace = function(ns_string) {
+  var parts = ns_string.split("."),
+      parent = MYAPP,
+      i;
+  if(parts[0] === "MYAPP") {
+    parts = parts.slice(1);
+  }
+  for(i = 0; i < parts.length; i+= 1) {
+    if(typeof parent[parts[i]] === "undefined") {
+      parent[parts[i]] = {};
+    }
+    parent = parent[parts[i]];
+  }
+  return parent;
+};
+
+
+/**
+ * 糖方法
+ */
+
+function method() {
+  if(typeof Funciton.prototype.method !== "function") {
+    Function.prototype.method = function (name, implementation) {
+      this.prototype[name] = implementation;
+      return this;
+    }
+  }
+}
+
+var Person = function(name) {
+  this.name = name;
+}.
+  method('getName', function() {
+    return this.name;
+  }).
+  method('setName', function() {
+    this.name = name;
+    return this;
+  });
+
+
+// get part of array
+function getArrayPart(array, start, end) {
+  var cloneArray = [].concat(array);
+  return cloneArray.splice(start, end);
 }
